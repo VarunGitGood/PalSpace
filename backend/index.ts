@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/test", (req, res) => {
-  res.send("Test");
+  res.send("Test Success?");
 });
 
 app.listen(process.env.PORT ?? 3000, () => {
