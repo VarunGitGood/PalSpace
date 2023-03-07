@@ -8,5 +8,6 @@
   ],
   "rules": {
     // Add custom rules here
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 }
