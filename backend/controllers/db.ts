@@ -18,7 +18,10 @@ export const joinQueue = async (req: any, res: any, next: any) => {
     if (queue.includes(id)) {
       return next(new ErrorResponse(500, 'Not Allowed to join'))
     }
+    // Add to queue
     await client.rpush('global', id)
+    // Check if queue is >= 2
+    // const queueLength = await client.llen('global')
     res.status(200).json({
       status: 'success',
       message: 'User Added to queue successfully',
@@ -28,6 +31,11 @@ export const joinQueue = async (req: any, res: any, next: any) => {
     return next(new ErrorResponse(500, 'Unable to join queue (Server Error)'))
   }
 }
+
+// Match users
+// GET /api/v1/queues/match
+// Private
+// export const matchUsers = async (req: any, res: any, next: any) => {}
 
 // Flush Queue
 // GET /api/v1/queues/flush
