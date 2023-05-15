@@ -2,12 +2,14 @@
 
 # Run format check
 npm run format:check
+FORMAT_CHECK_STATUS=$?
 
 # Run lint check
 npm run lint
+LINT_CHECK_STATUS=$?
 
-# If either of the checks fail, exit with a non-zero status
-if [ $? -ne 0 ]; then
+# If either the format check or the lint check fails, exit with a non-zero status
+if [ $FORMAT_CHECK_STATUS -ne 0 ] || [ $LINT_CHECK_STATUS -ne 0 ]; then
     echo "Format or lint check failed. Please fix the issues before pushing."
     exit 1
 fi
