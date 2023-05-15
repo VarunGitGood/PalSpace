@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Run format check
-npm run format:check
+npm run format
 FORMAT_CHECK_STATUS=$?
 
 # Run lint check
-npm run lint:check
+npm run lint
 LINT_CHECK_STATUS=$?
 
 # If either the format check or the lint check fails, exit with a non-zero status
