@@ -24,7 +24,10 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/jwt": "^10.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@prisma/client": "^4.14.1",
+    "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"

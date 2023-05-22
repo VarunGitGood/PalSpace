@@ -9,3 +9,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  uid         Int          @id @default(autoincrement())
+  username   String      @unique
+  email      String      @unique
+  password   String
+  joinedAt   DateTime?     @default(now())
+}
+
+// model FriendShip {
+//   requestedUserId Int
+//   AcceptedUserId  Int
+//   requestedUser   User @relation("requid" ,fields: [requestedUserId], references: [uid])
+//   acceptedUser    User @relation("accuid" ,fields: [AcceptedUserId], references: [uid])
+//   @@id([requestedUserId, AcceptedUserId])
+// }
