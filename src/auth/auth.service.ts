@@ -1,32 +1,73 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from '@prisma/client';
+import { UserDto } from './utils/types';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService, private prisma: PrismaService) {}
 
-  signIn(username: string, password: string): Promise<any> {
-    if (username === 'admin' && password === 'admin') {
+  async login(username: string, password: string): Promise<any> {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          username: username,
+        },
+      });
+      if (!user) {
+        return Promise.resolve({
+          message: 'Username does not exist',
+        });
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return Promise.resolve({
+          message: 'Password is not valid',
+        });
+      }
       const token = this.jwtService.sign({ username });
       return Promise.resolve({
         message: 'success',
         token: token,
       });
-    } else {
-      return Promise.resolve(null);
+    } catch (error) {
+      return Promise.resolve({
+        message: 'error',
+        error: error,
+      });
     }
   }
 
-  async createUser(data: User): Promise<any> {
-    const user = await this.prisma.user.create({
-      data: data,
-    });
-    console.log(user);
-    return Promise.resolve({
-      message: 'success',
-      user: user,
-    });
+  async register(data: UserDto): Promise<any> {
+    try {
+      const user = await this.prisma.user.findFirst({
+        where: {
+          OR: [{ email: data.email }, { username: data.username }],
+        },
+      });
+      if (user) {
+        return Promise.resolve({
+          message: 'Username already exists',
+        });
+      }
+
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+      const payload = { ...data, password: hashedPassword };
+      const newUser = await this.prisma.user.create({
+        data: payload,
+      });
+
+      const token = this.jwtService.sign({ username: newUser.username });
+      return Promise.resolve({
+        message: 'success',
+        token: token,
+      });
+    } catch (error) {
+      return Promise.resolve({
+        message: 'error',
+        error: error,
+      });
+    }
   }
 }
