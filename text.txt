@@ -1,0 +1,24 @@
+basically kuch imp commands later on for readme
+
+# 1. Install the dependencies
+npm install
+
+# 2. Run the app
+npm start:dev 
+
+# 3. Run the tests
+npm test
+
+for running Docker images
+docker-compose up -d
+
+-d is for detached flag so that it runs in background
+
+docker ps -a
+to check all the running containers
+
+docker-compose down
+to stop the containers
+
+to check data inside redis container (container-id from docker ps -a)
+docker exec -it <container-id> redis-cli
