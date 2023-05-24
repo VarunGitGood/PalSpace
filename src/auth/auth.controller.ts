@@ -21,6 +21,6 @@ export class AuthController {
 
   @Get('test')
   async test() {
-    return this.redis.push("lmao", "no");
+    return this.redis.push('lmao', 'no');
   }
 }

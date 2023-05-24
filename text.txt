@@ -14,11 +14,11 @@ docker-compose up -d
 
 -d is for detached flag so that it runs in background
 
-docker ps -a
+docker ps
 to check all the running containers
 
 docker-compose down
 to stop the containers
 
-to check data inside redis container (container-id from docker ps -a)
+to check data inside redis container (container-id from docker ps)
 docker exec -it <container-id> redis-cli

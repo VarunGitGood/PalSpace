@@ -6,7 +6,6 @@ import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
-import { RedisServiceInit } from './redis/redis.service';
 import { RedisDbModule } from './redis-db/redis-db.module';
 
 @Module({
@@ -23,6 +22,6 @@ import { RedisDbModule } from './redis-db/redis-db.module';
     RedisDbModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService, RedisServiceInit],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
