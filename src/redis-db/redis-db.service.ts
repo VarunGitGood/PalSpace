@@ -3,7 +3,7 @@ import { RedisService } from '@liaoliaots/nestjs-redis';
 import Redis from 'ioredis';
 
 @Injectable()
-export class RedisServiceInit {
+export class RedisDbService {
   private redis: Redis;
   constructor(private redisService: RedisService) {
     this.redis = this.redisService.getClient();

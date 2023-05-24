@@ -1,13 +1,13 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserDto, SignInDto } from './utils/types';
-import { RedisServiceInit } from 'src/redis/redis.service';
+import { RedisDbService } from 'src/redis-db/redis-db.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private redis: RedisServiceInit,
+    private redis: RedisDbService,
   ) {}
   @Post('login')
   async login(@Body() siginDto: SignInDto) {
@@ -17,5 +17,10 @@ export class AuthController {
   @Post('register')
   async register(@Body() userDto: UserDto) {
     return this.authService.register(userDto);
+  }
+
+  @Get('test')
+  async test() {
+    return this.redis.push("lmao", "no");
   }
 }

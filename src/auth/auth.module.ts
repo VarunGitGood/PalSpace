@@ -5,6 +5,7 @@ import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './utils/constants';
 import { PrismaModule } from 'src/prisma/prisma.module';
+import { RedisDbModule } from 'src/redis-db/redis-db.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
       signOptions: { expiresIn: '3600s' },
     }),
     PrismaModule,
+    RedisDbModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],
