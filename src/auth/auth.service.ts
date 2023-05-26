@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserDto } from './utils/types';
 import * as bcrypt from 'bcrypt';
-import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -70,36 +69,5 @@ export class AuthService {
         error: error,
       });
     }
-  }
-
-  async me(req: Request): Promise<any> {
-    const authUser: any = req['user'];
-    try {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          username: authUser.username,
-        },
-      });
-      return Promise.resolve({
-        message: 'success',
-        user: user,
-      });
-    } catch (error) {
-      return Promise.resolve({
-        message: 'error',
-        error: error,
-      });
-    }
-  }
-
-  async googleLogin(req: Request): Promise<any> {
-    if (!req.user) {
-      return 'No user from google';
-    }
-    console.log(req.user);
-
-    return {
-      user: req.user,
-    };
   }
 }

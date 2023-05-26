@@ -6,7 +6,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './utils/constants';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { RedisDbModule } from 'src/redis-db/redis-db.module';
-import { GoogleStrategy } from './utils/google.strategy';
 
 @Module({
   imports: [
@@ -20,6 +19,6 @@ import { GoogleStrategy } from './utils/google.strategy';
     RedisDbModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy],
+  providers: [AuthService],
 })
 export class AuthModule {}
