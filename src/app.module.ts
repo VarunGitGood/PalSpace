@@ -7,6 +7,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RedisDbModule } from './redis-db/redis-db.module';
+import { WsModule } from './ws/ws.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RedisDbModule } from './redis-db/redis-db.module';
       },
     }),
     RedisDbModule,
+    WsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
