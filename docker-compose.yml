@@ -1,3 +1,7 @@
+networks:
+  dockerNetwork:
+    driver: bridge
+
 services:
   postgres:
     image: postgres
@@ -20,6 +24,7 @@ services:
     # no need for volumes, we don't need to persist data
     volumes:
       - redis-data:/data
+
 volumes:
   postgres:
   redis-data:
