@@ -7,13 +7,20 @@ import { PrismaService } from './auth/prisma/prisma.service';
 import { PrismaModule } from './auth/prisma/prisma.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RedisDbModule } from './redis-db/redis-db.module';
-import { WsModule } from './ws/ws.module';
+import { EventsGateway } from './events/events.gateway';
+import { EventsModule } from './events/events.module';
+import { ConfigModule } from '@nestjs/config';
+
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     PrismaModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     RedisModule.forRoot({
       config: {
         host: process.env.REDIS_HOST,
@@ -21,9 +28,9 @@ import { WsModule } from './ws/ws.module';
       },
     }),
     RedisDbModule,
-    WsModule,
+    EventsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, EventsGateway],
 })
 export class AppModule {}

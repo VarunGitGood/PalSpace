@@ -11,11 +11,11 @@ datasource db {
 }
 
 model User {
-  uid         Int          @id @default(autoincrement())
-  username   String      @unique
-  email      String      @unique
-  password   String
-  joinedAt   DateTime?     @default(now())
+  uid      Int       @id @default(autoincrement())
+  username String    @unique
+  email    String    @unique
+  password String
+  joinedAt DateTime? @default(now())
 }
 
 // model FriendShip {
