@@ -3,13 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { PrismaService } from './prisma/prisma.service';
-import { PrismaModule } from './prisma/prisma.module';
+import { PrismaService } from './auth/prisma/prisma.service';
+import { PrismaModule } from './auth/prisma/prisma.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RedisDbModule } from './redis-db/redis-db.module';
 import { EventsGateway } from './events/events.gateway';
 import { EventsModule } from './events/events.module';
 import { ConfigModule } from '@nestjs/config';
+
 
 @Module({
   imports: [
