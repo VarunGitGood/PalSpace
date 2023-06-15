@@ -15,7 +15,7 @@ services:
       - '5432:5432'
     networks:
       - dockerNetwork
-
+  
   redis:
     image: redis
     restart: always
@@ -26,16 +26,6 @@ services:
     networks:
       - dockerNetwork
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    restart: always
-    ports:
-      - '5672:5672'
-      - '15672:15672'
-    volumes:
-      - rabbitmq:/var/lib/rabbitmq
-    env_file:
-      - .env
   # nest-app:
   #   build:
   #     context: .
@@ -58,8 +48,6 @@ services:
 volumes:
   postgres:
   redis-data:
-  rabbitmq:
-
 
 networks:
   dockerNetwork:
