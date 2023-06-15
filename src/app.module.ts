@@ -11,7 +11,6 @@ import { EventsGateway } from './events/events.gateway';
 import { EventsModule } from './events/events.module';
 import { ConfigModule } from '@nestjs/config';
 
-
 @Module({
   imports: [
     AuthModule,
