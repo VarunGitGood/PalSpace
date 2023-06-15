@@ -26,24 +26,24 @@ services:
     networks:
       - dockerNetwork
 
-  nest-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_HOST=postgres
-      - REDIS_HOST=redis
-    ports:
-      - '${PORT}:${PORT}'
-      - '${WS_PORT}:${WS_PORT}'
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - dockerNetwork
+  # nest-app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - POSTGRES_HOST=postgres
+  #     - REDIS_HOST=redis
+  #   ports:
+  #     - '${PORT}:${PORT}'
+  #     - '${WS_PORT}:${WS_PORT}'
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   networks:
+  #     - dockerNetwork
 
 volumes:
   postgres:
