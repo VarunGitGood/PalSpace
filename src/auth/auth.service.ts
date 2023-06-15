@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/auth/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserDto } from './utils/types';
 import * as bcrypt from 'bcrypt';
 import { Request } from 'express';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -52,9 +53,9 @@ export class AuthService {
           message: 'Username already exists',
         });
       }
-
+      const peerUID = uuid();
       const hashedPassword = await bcrypt.hash(data.password, 10);
-      const payload = { ...data, password: hashedPassword };
+      const payload = { ...data, password: hashedPassword, peerID: peerUID };
       const newUser = await this.prisma.user.create({
         data: payload,
       });
@@ -102,4 +103,6 @@ export class AuthService {
       user: req.user,
     };
   }
+
+  // async logout(req: Request): Promise<any> {}
 }
