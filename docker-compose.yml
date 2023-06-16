@@ -36,6 +36,8 @@ services:
       - rabbitmq:/var/lib/rabbitmq
     env_file:
       - .env
+    networks:
+      - dockerNetwork
   # nest-app:
   #   build:
   #     context: .
