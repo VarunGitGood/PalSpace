@@ -9,7 +9,9 @@ async function bootstrap() {
     cors: true,
   });
   app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api/v1');
 
+  // Swagger config
   const config = new DocumentBuilder()
     .setTitle('PalSpace Backend')
     .setDescription('PalSpace Backend API description')
