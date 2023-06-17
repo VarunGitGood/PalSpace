@@ -37,6 +37,7 @@
     "@nestjs/swagger": "^6.3.0",
     "@nestjs/websockets": "^9.4.3",
     "@prisma/client": "^4.14.0",
+    "@types/uuid": "^9.0.2",
     "amqp-connection-manager": "^4.1.13",
     "amqplib": "^0.10.3",
     "axios": "^1.4.0",

@@ -14,6 +14,7 @@ import { RabbitmqModule } from './rabbitmq/rabbitmq.module';
 
 @Module({
   imports: [
+    RabbitmqModule,
     AuthModule,
     UsersModule,
     PrismaModule,
