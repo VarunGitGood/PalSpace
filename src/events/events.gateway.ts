@@ -22,6 +22,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() Server;
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
 
+  // DISCUSS: is this the best way to store the connected users?
   public connectedUsers: Map<string, string> = new Map<string, string>();
 
   public getConnectedUsers() {
