@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserDto } from './utils/types';
+import { UserDto } from '../utils/types';
 import * as bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { v4 as uuid } from 'uuid';
@@ -9,6 +9,15 @@ import { v4 as uuid } from 'uuid';
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService, private prisma: PrismaService) {}
+
+  async verifyWsConnection(token: string): Promise<any> {
+    const decoded = await this.jwtService.verify(token);
+    const user = decoded;
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return user;
+  }
 
   async login(username: string, password: string): Promise<any> {
     const user = await this.prisma.user.findUnique({
@@ -80,5 +89,10 @@ export class AuthService {
     };
   }
 
-  // async logout(req: Request): Promise<any> {}
+  async logout(req: Request): Promise<any> {
+    delete req['user'];
+    return {
+      message: 'Logged out successfully',
+    };
+  }
 }

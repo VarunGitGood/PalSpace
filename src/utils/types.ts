@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { User as PrismaUser } from '@prisma/client';
 
 export class SignInDto {
   @ApiProperty({
@@ -50,3 +51,6 @@ export class UserDto {
   @IsString()
   email: string;
 }
+
+// Prisma Data Models
+export type User = PrismaUser;

@@ -10,6 +10,7 @@ import { RedisDbModule } from './redis-db/redis-db.module';
 import { EventsGateway } from './events/events.gateway';
 import { EventsModule } from './events/events.module';
 import { ConfigModule } from '@nestjs/config';
+import { QueueModule } from './queue_1/queue.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ConfigModule } from '@nestjs/config';
     }),
     RedisDbModule,
     EventsModule,
+    QueueModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, EventsGateway],

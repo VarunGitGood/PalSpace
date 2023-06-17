@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserDto, SignInDto } from './utils/types';
+import { UserDto, SignInDto } from '../utils/types';
 import { RedisDbService } from 'src/redis-db/redis-db.service';
 import { Request } from 'express';
 import { AuthenticationGuard } from './guards/auth.guard';

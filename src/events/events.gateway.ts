@@ -4,7 +4,10 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
   WebSocketServer,
+  WsException,
 } from '@nestjs/websockets';
+import { AuthService } from 'src/auth/auth.service';
+import { User } from 'src/utils/types';
 
 const PORT = parseInt(process.env.WS_PORT);
 
@@ -12,21 +15,37 @@ const PORT = parseInt(process.env.WS_PORT);
   cors: {
     origin: process.env.CLIENT_URL,
   },
+  namespace: 'events',
 })
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  constructor(private authService: AuthService) {}
   @WebSocketServer() Server;
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  users: number = 0;
 
-  async handleConnection() {
-    // verify auth here and throw error if not authenticated to be caught by our global exception filter
-    this.users++;
-    this.Server.emit('users_count', this.users);
+  public connectedUsers: Map<string, string> = new Map<string, string>();
+
+  public getConnectedUsers() {
+    return this.connectedUsers;
   }
 
-  async handleDisconnect() {
-    this.users--;
-    this.Server.emit('users_count', this.users);
+  async handleConnection(client) {
+    const token = client.handshake.query.token;
+    const user: User = await this.authService.verifyWsConnection(token);
+    if (!user) {
+      throw new WsException('Invalid token');
+    }
+    this.connectedUsers.set(user.username, client.id);
+    this.Server.emit('users_count', this.connectedUsers.size);
+  }
+
+  async handleDisconnect(client) {
+    const token = client.handshake.query.token;
+    const user: User = await this.authService.verifyWsConnection(token);
+    if (!user) {
+      throw new WsException('Invalid token');
+    }
+    this.connectedUsers.delete(user.username);
+    this.Server.emit('users_count', this.connectedUsers.size);
   }
 
   @SubscribeMessage('message')
