@@ -10,6 +10,8 @@ import { RedisDbModule } from './redis-db/redis-db.module';
 import { EventsGateway } from './events/events.gateway';
 import { EventsModule } from './events/events.module';
 import { ConfigModule } from '@nestjs/config';
+import { KafkaService } from './kafka/kafka.service';
+import { KafkaModule } from './kafka/kafka.module';
 
 @Module({
   imports: [
@@ -28,8 +30,9 @@ import { ConfigModule } from '@nestjs/config';
     }),
     RedisDbModule,
     EventsModule,
+    KafkaModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService, EventsGateway],
+  providers: [AppService, PrismaService, EventsGateway, KafkaService],
 })
 export class AppModule {}

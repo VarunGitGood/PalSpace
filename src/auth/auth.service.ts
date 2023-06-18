@@ -54,8 +54,14 @@ export class AuthService {
         });
       }
       const peerUID = uuid();
+      const kafkaGroupID: string = data.username + '-group';
       const hashedPassword = await bcrypt.hash(data.password, 10);
-      const payload = { ...data, password: hashedPassword, peerID: peerUID };
+      const payload = {
+        ...data,
+        password: hashedPassword,
+        peerID: peerUID,
+        groupID: kafkaGroupID,
+      };
       const newUser = await this.prisma.user.create({
         data: payload,
       });

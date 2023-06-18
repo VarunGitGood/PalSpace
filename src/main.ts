@@ -9,6 +9,7 @@ async function bootstrap() {
     cors: true,
   });
   app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()
     .setTitle('PalSpace Backend')
