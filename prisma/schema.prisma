@@ -11,18 +11,33 @@ datasource db {
 }
 
 model User {
-  uid      Int       @id @default(autoincrement())
-  username String    @unique
-  email    String    @unique
-  password String
-  peerID   String?    @unique
-  joinedAt DateTime? @default(now())
+  uid        Int          @id @default(autoincrement())
+  username   String       @unique
+  email      String       @unique
+  password   String
+  peerID     String?      @unique
+  joinedAt   DateTime?    @default(now())
 }
 
-// model FriendShip {
-//   requestedUserId Int
-//   AcceptedUserId  Int
-//   requestedUser   User @relation("requid" ,fields: [requestedUserId], references: [uid])
-//   acceptedUser    User @relation("accuid" ,fields: [AcceptedUserId], references: [uid])
-//   @@id([requestedUserId, AcceptedUserId])
+model Friendship {
+  id             Int              @id @default(autoincrement())
+  senderId       Int
+  receiverId     Int
+  status         FriendshipStatus @default(PENDING)
+  requestSentAt  DateTime         @default(now())
+  statusUpdateAt DateTime?
+
+  userUid  Int?
+}
+
+// model Friend {
+//   id       Int @id @default(autoincrement())
+//   friendId Int
+//   // friend   User @relation("Friend", fields: [friendId], references: [uid])
 // }
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
